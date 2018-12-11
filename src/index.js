@@ -38,7 +38,7 @@ const setFilters = (updates) => {
 }
 
 
-// Generate the DOM structure for a note
+// Generate the DOM structure for a recipe card
 const generateRecipeCardDOM = (recipe) => {
     const recipeEl = document.createElement('a')
     const titleEl = document.createElement('p')
@@ -46,7 +46,7 @@ const generateRecipeCardDOM = (recipe) => {
 
     // Set up the note title text
     if (recipe.title.length > 0 ){
-        titleEl.textContent = note.title
+        titleEl.textContent = recipe.title
     } else {
         titleEl.textContent = 'Unnamed Recipe'
     }
@@ -121,5 +121,24 @@ const initializeEditPage = (noteId) => {
     bodyElement.value = note.body    
 }*/
 
-// Generate the last edited message
-const generateLastEdited = (timestamp) => `Last edited ${moment(timestamp).fromNow()}`
+
+const getEnoughIngredients = (ingredients) => {
+    let doHave = false;
+    let dontHave = false;
+
+    for (let ingredient of ingredients ) {
+        if (ingredient.inStock) {
+            doHave = true;
+        } else {
+            dontHave = true;
+        } 
+    }
+
+    if (doHave && dontHave) {
+        return 'You have some of the ingredients neccessary for this recipe.'
+    } else if (!doHave) {
+        return 'You do not have the ingredients for this recipe.'
+    } else {
+        return 'You have everything you need to start cooking!'
+    }
+}
