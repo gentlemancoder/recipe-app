@@ -1,39 +1,38 @@
 // import uuidv4 from 'uuid/v4'
 // import moment from 'moment'
 
-renderNotes()
+
+renderRecipes()
 
 document.querySelector('#"add-recipe').addEventListener('click', (e) => {
     const id = createRecipe()
     location.assign('/recipe.html#' +id)
 })
 
-document.querySelector('#search-text').addEventListener('input', (e) => {
+document.querySelector('.searchbox').addEventListener('input', (e) => {
     setFilters({
         searchText: e.target.value
     })  
-    renderNotes()
+    renderRecipes()
 })
-
 
 window.addEventListener('storage', (e) => {
     if (e.key === 'recipes'){
         loadRecipes()
-        renderNotes()
+        renderRecipes()
     }
 })
 
 
-
-const filters = {
-    searchText: '',
+const searchFilter = {
+REsearchText: '',
 }
 
-const getFilters = () => filters
+const getFilter = () => searchFilter
 
-const setFilters = (updates) => {
+const setFilter = (updates) => {
     if (typeof updates.searchText === 'string'){
-        filters.searchText = updates.searchText
+        searchFilter.searchText = updates.searchText
     }
 }
 
@@ -78,7 +77,7 @@ const createRecipe = () => {
             inStock: false
         },
     })
-    saveNotes()
+    saveRecipes()
 
     return id
 }
